@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estrangeiro ou Brasileiro?</title>
+</head>
+<body>
+    <h1>Em Qual País Você Mora?</h1>
+    <input type="text" name="txtnac" id="txtnac">
+    <input type="button" value="Verificar" onclick="ver()">
+    <div id="res"></div>
+    <script>
+        function ver(){
+            var tnac = window.document.querySelector('input#txtnac').value
+            var res = window.document.querySelector('div#res') 
+            res.innerHTML = `<p>Você está morando no(a) <strong>${tnac}</strong>.</p>`
+            if (tnac === 'Brasil') {
+            res.innerHTML += '<p>Você é brasileiro!</p>'
+            }
+            else {
+            res.innerHTML += '<p>Você é estrangeiro!</p>'
+            }
+        }
+    </script>
+</body>
+</html>

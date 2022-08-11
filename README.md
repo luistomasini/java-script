@@ -4,5 +4,5 @@ Estudos em JavaScript
 <h1>Projetos Avulsos</h1>
 
 <ul>
-  <li><a href="https://luistomasini.github.io/java-script/projetos-avulsos/memory-game/index.html">Jogo da Memória<li>
+  <li><a href="https://luistomasini.github.io/java-script/projetos-avulsos/memory-game-js/pages/index.html">Jogo da Memória<li>
 </ul>

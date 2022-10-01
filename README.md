@@ -9,3 +9,5 @@ Estudos em JavaScript
   <li><a href="https://luistomasini.github.io/java-script/projetos-avulsos/semaforo-js/index.html">Semáforo Web
   <li><a href="https://luistomasini.github.io/java-script/projetos-avulsos/memory-game-js/pages/game.html">Jogo da Memória
 </ul>
+
+[Calculadora](https://luistomasini.github.io/java-script/hcode-js/projetos-hcode/projeto-calculadora)

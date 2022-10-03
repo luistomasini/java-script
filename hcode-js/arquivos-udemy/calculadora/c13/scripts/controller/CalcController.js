@@ -1,14 +1,9 @@
-/* 1 - class e construtor */
-
 class CalcController {
 
-    constructor() {
-
-        this._lastOperator = '';
-        this._lastNumber = '';
+    constructor(){
 
         this._operation = [];
-        this._locale = 'pt-br'
+        this._locale = 'pt-BR';
         this._displayCalcEl = document.querySelector("#display");
         this._dateEl = document.querySelector("#data");
         this._timeEl = document.querySelector("#hora");
@@ -17,22 +12,20 @@ class CalcController {
         this.initButtonsEvents();
 
     }
-/* 4 - Data e Hora com Interval */
 
     initialize(){
 
-        this.setDisplayDateTime();
+        this.setDisplayDateTime()
 
-        setInterval(() => {
+        setInterval(()=>{
 
             this.setDisplayDateTime();
 
         }, 1000);
 
         this.setLastNumberToDisplay();
-    }
 
- /* 6 - Vários eventos */
+    }
 
     addEventListenerAll(element, events, fn){
 
@@ -40,11 +33,9 @@ class CalcController {
 
             element.addEventListener(event, fn, false);
 
-        });
-
+        })
+    
     }
-
- /* 7.1 - Método do botão AC */
 
     clearAll(){
 
@@ -54,8 +45,6 @@ class CalcController {
 
     }
 
- /* 7.2 - Método do botão CE */
-
     clearEntry(){
 
         this._operation.pop();
@@ -64,27 +53,22 @@ class CalcController {
 
     }
 
- /* 8 -  Verificação de Number ou NaN*/
-
     getLastOperation(){
 
         return this._operation[this._operation.length-1];
 
     }
-    
-
- /* 7.4 - Método dos operadores */
 
     setLastOperation(value){
 
-        this._operation[this._operation.length-1] = value
+        this._operation[this._operation.length-1] = value;
 
     }
 
     isOperator(value){
 
         return (['+', '-', '*', '%', '/'].indexOf(value) > -1);
-    
+
     }
 
     pushOperation(value){
@@ -99,45 +83,23 @@ class CalcController {
 
     }
 
-    getResult() {
-
-        return eval(this._operation.join(""));
-
-    }
-
     calc(){
 
         let last = '';
-
-        this._lastOperator = this.getLastItem();
-
-        if (this._operation.length < 3) {
-
-            let firstItem = this._operation[0]
-            
-            this._operation = [firstItem, this._lastOperator, this._lastNumber];
-
-        }
 
         if (this._operation.length > 3) {
 
             last = this._operation.pop();
 
-            this._lastNumber = this.getResult();
-
-        } else if (this._operation.length == 3) {
-
-            this._lastNumber = this.getLastItem(false);
-
         }
+        
+        let result = eval(this._operation.join(""));
 
-        let result = this.getResult();
-
-        if(last == '%') {
+        if (last == '%') {
 
             result /= 100;
 
-            this._operation = [result]
+            this._operation = [result];
 
         } else {
 
@@ -145,43 +107,29 @@ class CalcController {
 
             if (last) this._operation.push(last);
 
-        }   
+        }
 
         this.setLastNumberToDisplay();
 
-
     }
 
-    getLastItem(isOperator = true) {
+    setLastNumberToDisplay(){
 
-        let lastItem;
+        let lastNumber;
 
-        for (let i = this._operation.length-1; i >= 0; i --) {
+        for (let i = this._operation.length-1; i >= 0; i--){
 
-            if (this.isOperator(this._operation[i]) == isOperator) {
+            if (!this.isOperator(this._operation[i])) {
 
-                lastItem = this._operation[i];
+                lastNumber = this._operation[i];
+
                 break;
 
             }
 
         }
 
-        if(!lastItem) {
-
-            lastItem = (isOperator) ? this._lastOperator : this._lastNumber;
-
-        }
-
-        return lastItem;
-
-    }
-
-    setLastNumberToDisplay(){
-
-        let lastNumber = this.getLastItem(false);
-
-        if (!lastNumber) lastNumber = 0; 
+        if (!lastNumber) lastNumber = 0;
 
         this.displayCalc = lastNumber;
 
@@ -189,62 +137,52 @@ class CalcController {
 
     addOperation(value){
 
-        if (isNaN(this.getLastOperation())) {
-            //String
 
-            if(this.isOperator(value)) {
-                //Trocar o operador
+        if (isNaN(this.getLastOperation())) {
+
+            if (this.isOperator(value)) {
 
                 this.setLastOperation(value);
 
-            } else if (isNaN(value)) {
+            } else if (isNaN(value)){
 
-                //Outra coisa
-                console.log('Outra coisa', value);
+                console.log("outra coisa",value);
 
-            } else {   
+            } else {
 
                 this.pushOperation(value);
-                // atualizar display
+
                 this.setLastNumberToDisplay();
 
             }
 
-        
         } else {
 
-            if (this.isOperator(value)) {
+            if (this.isOperator(value)){
 
                 this.pushOperation(value);
 
             } else {
-                //Number     
-                let newValue = this.getLastOperation().toString() + value.toString();
-                this.setLastOperation(parseInt(newValue));  
 
-                // atualizar display
+                let newValue = this.getLastOperation().toString() + value.toString();
+
+                this.setLastOperation(parseInt(newValue));
+
                 this.setLastNumberToDisplay();
 
             }
 
-                 
         }
 
-
     }
-
-/* 7.3 - Método referente ao defaul do swicth */
 
     setError(){
 
         this.displayCalc = "Error";
-
+        
     }
 
- /* 7 - Switch botõs operacionais */
-
     execBtn(value){
-        console.log(value)
 
         switch (value) {
 
@@ -257,23 +195,23 @@ class CalcController {
                 break;
 
             case 'soma':
-                this.addOperation('+')
+                this.addOperation('+');
                 break;
 
             case 'subtracao':
-                this.addOperation('-')
+                this.addOperation('-');
                 break;
 
             case 'divisao':
-                this.addOperation('/')
+                this.addOperation('/');
                 break;
 
             case 'multiplicacao':
-                this.addOperation('*')
+                this.addOperation('*');
                 break;
 
             case 'porcento':
-                this.addOperation('%')
+                this.addOperation('%');
                 break;
 
             case 'igual':
@@ -281,7 +219,7 @@ class CalcController {
                 break;
 
             case 'ponto':
-                this.addOperation('.')
+                this.addOperation('.');
                 break;
 
             case '0':
@@ -300,11 +238,10 @@ class CalcController {
             default:
                 this.setError();
                 break;
+
         }
 
     }
-
-/* 5 - Eventos botões */
 
     initButtonsEvents(){
 
@@ -324,53 +261,69 @@ class CalcController {
 
                 btn.style.cursor = "pointer";
 
-            } )
+            })
 
         })
 
     }
 
-/* 3 - Data e Hora */
+    setDisplayDateTime(){
 
-    setDisplayDateTime() {
-
-        this.displayDate = this.currentDate.toLocaleDateString(this._locale,{day: "2-digit", month: "long", year: "numeric"});
+        this.displayDate = this.currentDate.toLocaleDateString(this._locale, {
+            day: "2-digit",
+            month: "long",
+            year: "numeric"
+        });
         this.displayTime = this.currentDate.toLocaleTimeString(this._locale);
 
     }
 
-/* 2 - Data e Hora */
-
     get displayTime(){
-        return this._timeEl.innerHTML
+
+        return this._timeEl.innerHTML;
+
     }
 
     set displayTime(value){
-        return this._timeEl.innerHTML = value
+
+        return this._timeEl.innerHTML = value;
+
     }
 
     get displayDate(){
-        return this._dateEl.innerHTML
+
+        return this._dateEl.innerHTML;
+
     }
 
     set displayDate(value){
-        return this._dateEl.innerHTML = value
+
+        return this._dateEl.innerHTML = value;
+
     }
 
     get displayCalc(){
+
         return this._displayCalcEl.innerHTML;
+
     }
 
     set displayCalc(value){
+
         this._displayCalcEl.innerHTML = value;
+
     }
 
-    get currentDate() {
+    get currentDate(){
+
         return new Date();
+
     }
 
     set currentDate(value){
+
         this._currentDate = value;
+
     }
 
 }
